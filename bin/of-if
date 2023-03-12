@@ -1,27 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'bundler/setup'
+require 'bundler/setup' if File.exist? './of_if.gemspec'
 require 'of_if'
 
-TARGET_DIR = './of_if'
-
-def create_target_directory
-  FileUtils.mkdir_p TARGET_DIR
-end
-
-def targetfile_from(sourcefile)
-  path, file = File.split sourcefile
-  target_filename = "#{path.gsub('/', '_')}_#{file.split('.')[0]}.png"
-  File.join TARGET_DIR, target_filename
-end
-
-def find_source_files = Dir.glob('**/*.rb')
-
-def exclude_vendor_files(files) = files.reject { |file| file.start_with? 'vendor' }
-
-create_target_directory
-source_files = exclude_vendor_files find_source_files
-source_files.each do |file|
-  OfIf::Image.from_sourcefile(file).write targetfile_from(file)
-end
+runner = OfIf::Runner.new
+runner.target_dir = ARGV unless ARGV.empty?
+runner.()
