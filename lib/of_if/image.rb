@@ -76,7 +76,7 @@ module OfIf
 
     def create_image_operation(line, line_index)
       lambda { |png|
-        return if line.length.zero?
+        return if line.empty?
 
         from = rect_start_point line, line_index
         to = rect_end_point line, line_index

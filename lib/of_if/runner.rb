@@ -9,7 +9,7 @@ module OfIf
 
     attr_writer :logger, :source_files, :target_dir
 
-    def initialize(logger = STDOUT) = @logger = logger
+    def initialize(logger = $stdout) = @logger = logger
 
     def call
       ensure_dir

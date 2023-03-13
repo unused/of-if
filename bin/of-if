@@ -4,6 +4,15 @@
 require 'bundler/setup' if File.exist? './of_if.gemspec'
 require 'of_if'
 
+if ARGV.any? { |file| !File.exist?(file) }
+  puts <<~USAGE
+    Usage:
+      $ of-if <sourcefiles...>
+  USAGE
+  exit(-1)
+end
+
 runner = OfIf::Runner.new
-runner.target_dir = ARGV unless ARGV.empty?
-runner.()
+runner.source_files = ARGV unless ARGV.empty?
+runner.target_dir = ENV.fetch('OF_IF_DIR', nil)
+runner.call

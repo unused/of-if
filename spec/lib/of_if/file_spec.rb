@@ -12,4 +12,16 @@ describe OfIf::File do
   it 'detects indentation of lines' do
     expect(file.lines[3].indent_length).to eq 2
   end
+
+  describe '#to_s' do
+    it 'provides a printable summary' do
+      expect("#{file}\n").to eq <<~SOURCE
+        █████████████████████████████
+
+        ███████████
+          █████████████████
+        ███
+      SOURCE
+    end
+  end
 end

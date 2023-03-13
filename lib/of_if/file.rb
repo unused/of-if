@@ -7,6 +7,7 @@ module OfIf
     # Line responds to content and indentation length of a single line.
     Line = Struct.new(:raw) do
       def comment? = raw.lstrip.start_with?('#')
+      def empty? = length.zero?
       def length = raw.length
       def content_length = raw.lstrip.length
       def indent_length = length - content_length

@@ -4,24 +4,28 @@ require 'tmpdir'
 
 describe OfIf::Runner do
   subject(:runner) { described_class.new logger }
+
   let(:logger) { [] }
   let(:tmpdir) { Dir.mktmpdir }
-  let(:sourcefile) { File.basename(__FILE__).split('.')[0] }
+  let(:sourcefile) { File.basename(__FILE__, '.*') }
 
   it 'prints progress' do
-    runner.()
+    runner.call
     expect(logger.last).to eq "Done\n"
   end
 
-  it '' do
-    runner.source_files = [sourcefile]
-    runner.target_dir = tmpdir
-    runner.()
-    image_file = "#{tmpdir}/#{sourcefile}.png"
+  it 'creates an image from sourcefile' do
+    with_file_stubs(runner).call
+    image_file = "#{tmpdir}/spec_lib_of_if_#{sourcefile}.png"
 
-    require 'pry'; binding.pry
-    expect(File.exist?(image_file)).to be_truthy
+    expect(File).to exist(image_file)
   ensure
     FileUtils.remove_entry tmpdir
+  end
+
+  def with_file_stubs(runner)
+    runner.source_files = ["spec/lib/of_if/#{sourcefile}.rb"]
+    runner.target_dir = tmpdir
+    runner
   end
 end
