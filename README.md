@@ -23,6 +23,14 @@ $ bundle install
 $ bundle exec rake specs
 ```
 
+## So, why the name?
+
+Indentation often comes with conditional statements and branching of code,
+splitting the thoughts of a reader.
+
+"of" is a pre-position :rofl: - it also indicates a relation
+to something, e.g. distance "of", direction (south of), etc.
+
 ## License
 
 The gem is available as open source under the terms of the [MIT
